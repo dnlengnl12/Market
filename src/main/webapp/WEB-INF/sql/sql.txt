@@ -1,0 +1,45 @@
+create table item_db(
+    item_num        number              primary key,
+    acc_id          varchar2(100)       not null,
+    acc_name        varchar2(100)       not null,
+    item_option     varchar2(100)       not null,
+    item_title      varchar2(1000)      not null,
+    item_contents   varchar2(2000)      not null,
+    item_date       date                default sysdate,
+    item_hits       number              default 0,
+    item_photos     varchar2(1000)
+    originalfile	varchar2(1000)
+);
+create sequence item_db_seq;
+
+create table account_db(
+    acc_id          varchar2(100)           primary key,
+    acc_pw          varchar2(100)           not null,
+    acc_name        varchar2(100)           not null,
+    acc_add         varchar2(1000)          not null,
+    acc_phone       varchar2(100)           not null,
+    acc_email       varchar2(500)           not null
+);
+
+alter table item_db add constraint item_db_fk foreign key (acc_id) references account_db(acc_id);
+
+alter table account_db modify constraint acc_add3 not null;
+
+alter table item_db add price number not null;
+
+create table file_db(
+    file_no             number              primary key
+    ,acc_id             varchar2(100)       not null
+    ,item_num           number              not null
+    ,originalfile		varchar2(200)	    not null
+	,savedfile			varchar2(100)       not null
+    ,constraint fk_file_db1 foreign key(acc_id) references account_db(acc_id)
+    ,constraint fk_file_db2 foreign key(item_num) references item_db(item_num)
+);
+
+alter table item_db drop column item_photos;
+alter table item_db drop column originalfile;
+alter table item_db rename column price to item_price;
+
+create sequence file_db_seq;
+alter table file_db add file_index number;

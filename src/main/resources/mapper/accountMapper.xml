@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dyung.kim.dao.AccountMapper">
+	<insert id="accountInsert" parameterType="account">
+		insert into
+			account_db(
+				acc_id
+				,acc_pw
+				,acc_name
+				,acc_add
+				,acc_add2
+				,acc_add3
+				,acc_phone
+				,acc_email
+			)values(
+				#{acc_id}
+				,#{acc_pw}
+				,#{acc_name}
+				,#{acc_add}
+				,#{acc_add2}
+				,#{acc_add3}
+				,#{acc_phone}
+				,#{acc_email}
+			)
+	</insert>
+	
+	<select id="accountOne" parameterType="string" resultType="account">
+		select
+			acc_id
+			,acc_name
+			,acc_pw
+		from
+			account_db
+		where
+			acc_id = #{acc_id}
+	</select>
+	
+</mapper>

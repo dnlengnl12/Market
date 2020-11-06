@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dyung.kim.dao.ItemMapper">
+<!-- 이벤트를 저장 -->
+	<insert id="itemInsert" parameterType="item">
+		insert into
+			item_db(
+				item_num
+				,acc_id
+				,acc_name
+				,item_option
+				,item_title
+				,item_contents
+				,item_price
+			)values(
+				item_db_seq.nextval
+				,#{acc_id}
+				,#{acc_name}
+				,#{item_option}
+				,#{item_title}
+				,#{item_contents}
+				,#{item_price}
+			)
+			<selectKey keyProperty="item_num" resultType="int" order="AFTER">
+				select item_db_seq.currval
+				from dual
+			</selectKey>
+	</insert>
+	<select id="selectItemAll" resultType="hashmap">
+ 		select
+			a.acc_id		as	acc_id
+			,a.acc_name		as	acc_name
+			,a.acc_add2		as	acc_add2
+			,i.item_num		as	item_num
+			,i.item_title	as	item_title
+			,i.item_price	as	item_price
+			,i.item_option	as	item_option
+			,i.item_date	as	item_date
+			,i.item_hits	as	item_hits
+			,f.savedfile	as	savedfile
+            ,f.file_index	as	file_index
+		from
+			account_db a,
+			item_db i,
+			file_db f
+		where
+			a.acc_id = i.acc_id
+            and
+            f.item_num = i.item_num
+            and
+            f.file_index = 1
+        order by
+        	item_date desc
+	</select>
+		<select id="selectItemMain" resultType="hashmap">
+ 		select
+			a.acc_id		as	acc_id
+			,a.acc_name		as	acc_name
+			,a.acc_add2		as	acc_add2
+			,i.item_num		as	item_num
+			,i.item_title	as	item_title
+			,i.item_price	as	item_price
+			,i.item_option	as	item_option
+			,i.item_date	as	item_date
+			,i.item_hits	as	item_hits
+			,f.savedfile	as	savedfile
+            ,f.file_index	as	file_index
+		from
+			account_db a,
+			item_db i,
+			file_db f
+		where
+			a.acc_id = i.acc_id
+            and
+            f.item_num = i.item_num
+            and
+            f.file_index = 1
+        order by
+        	item_date desc
+	</select>
+	<select id="countBoard" resultType="int">
+	 select 
+	 		count(*)
+	 from
+	 	item_db
+	
+	</select>
+</mapper>

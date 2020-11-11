@@ -13,5 +13,6 @@ public class ItemVO {
 	private String item_title;
 	private String item_contents;
 	private String item_date;
+	private int item_fileNum;
 	private int item_hits;
 }

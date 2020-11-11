@@ -174,10 +174,112 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         	margin-left : 10px;
         }
         
+        .photo_box{
+        	text-align : center;
 
-       
+        }
+        
+        .photo{
+        	width : 650px;
+        	height : 500px;
+        	border-radius : 20px;
+        }
+
+        .acc_info{
+
+
+        	height : 50px;
+        	width : 60%;
+        	right : 300px;
+        	top : -20px;
+        	margin-right : 500px;
+        	margin-left : 300px;
+        	
+        }
+
+		.user_img{
+			border-radius : 70%;
+		}
+		
+		.acc_info2{
+			position : relative;
+			display : inline;
+			top : -50px;
+			left : 110px;
+		}
+		
+		.acc_info3{
+			float : right;
+		}
+        .item_title{
+       		text-align : center;
+			font-size : 35px;
+			font-border : 500;
+			margin-top : 15px;
+			margin-bottom : 30px;
+       	}
+       	.item_contents{
+       		width : 800px;
+       		height : 300px;
+       		font-size : 20px;
+       		font-border : 3px;
+       		margin-left : 290px;
+
+       	}
+         .acc_name{
+			color : black;
+        	font-size: 35px;
+        	margin-left : 10px;
+        }
+        
+        .hold{
+        	position : relative;
+        	top : -300px;
+        	left : 300px;
+        	width : 800px;
+        	height : 50px;
+        }
       
-            
+        .left{
+        	text-align : left;
+			width : 50px;
+		
+        }
+        .right{
+        	text-align : right;
+			width : 100px;
+        }   
+        .comments{
+        width : 800px;
+        height : 130px;
+        	margin-left : 290px;
+        }
+        
+        .com{
+        float : center;
+       	width : 800px;
+       	margin-left : 290px;
+       	overflow : auto;
+        }
+        table {
+        	width: 100%;
+        	border-top : 1px solid #444444;
+        	border-collapse: collapse;
+        }
+        .td1{
+        	width: 10%;
+        	border-bottom: 1px solid #444444;
+        	padding: 10px;
+        }
+        .td2{
+        	width : 65%;
+        	border-bottom: 1px solid #444444;
+        	padding: 10px;
+        }
+        .td3{
+        	border-bottom: 1px solid #444444;
+        	padding: 10px;
+        }
         </style>
         
       <!----webfonts---->
@@ -274,7 +376,103 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
             document.getElementById("loginForm").submit;
          }
-                  
+
+		function pre_index(){
+			var file_index = document.getElementById("file_index").value;
+			var fileNum = document.getElementById("fileNum").value;
+			if(file_index > 1){
+				$.ajax({
+					url:"/board/preIndex",
+					type:"get",
+					datatype: "json",
+					data: { file_index: $("#file_index").val()
+							,item_no: $("#item_no").val()},
+					success: function(data){
+						$("#saved_file").val(data.savedfile);
+						$("#file_index").val(data.file_index);
+						var changeimg = document.getElementById("saved_file").value;
+
+						document.getElementById("img").src = "<c:url value='/resources/boardfile/"+changeimg+"'></c:url>";
+					},
+					error:function(e){
+						alert("통신 실패...");
+					}
+				});
+				if(file_index != fileNum+1){
+					$(".right").show();
+				}
+				if (file_index == 2){
+					$(".left").hide();
+				}
+			}
+
+		}
+		function miri(){
+			$(".left").hide();
+			var fileNum = document.getElementById("fileNum").value;
+			if(fileNum == 1){
+				$(".right").hide();
+			}
+		}
+        function next_index(){
+			var fileNum = document.getElementById("fileNum").value;
+			var file_index = document.getElementById("file_index").value; 
+            if(file_index < fileNum){
+				$.ajax({
+					url:"/board/nextIndex",
+					type:"get",
+					datatype: "json",
+					data: { file_index: $("#file_index").val()
+							,item_no: $("#item_no").val() },
+					success: function(data){
+						$("#saved_file").val(data.savedfile);
+						$("#file_index").val(data.file_index);
+						var changeimg = document.getElementById("saved_file").value;
+						document.getElementById("img").src = "<c:url value='/resources/boardfile/"+changeimg+"'></c:url>";
+					},
+					error:function(e){
+						alert("통신 실패...");
+						console.log(e);
+					}
+				});
+				if (file_index == fileNum-1){
+					$(".right").hide();
+				}
+				if	(file_index > 0) {
+					$(".left").show();
+				}
+            }
+	     }
+
+		function com_submit(){
+			var comment_contents = document.getElementById("comment_contents").value;
+			
+			if(comment_contents == ''){
+				alert("댓글을 작성 해 주세요.");
+				return false;
+			}
+			if(${empty sessionScope.loginID}){
+				alert("댓글을 작성하시려면 로그인을 해 주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"/board/commentWrite",
+				type:"post",
+				datatype:"json",
+				data: {item_no : $("#item_no").val()
+						,comment_contents : $("#comment_contents").val() },
+				success : function(data){
+					$("#comment").append("<tr><td class='td1'>"+data.acc_name+"</td><td class='td2'>"+data.comment_contents+"</td><td class='td3'>"+data.comment_date+"</td></tr>");
+					
+
+				},
+				error : function(e){
+					alert("통신 실패");
+					consol.log(e);
+				}
+			});
+			document.getElementById("comment_contents").value = "";
+		}
       </script>
       
       
@@ -284,14 +482,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       
    </head>
    
-   <body>
+   <body onload="miri();">
    
-      <!---start-wrap---->
+       <!---start-wrap---->
          <!---start-header---->
          <div class="header">
             <div class="wrap">
             <div class="logo">
-               <a href="index.html"><img src="../resources/images/logo.png" title="pinbal" /></a>
+               <a href="/"><img src="../resources/images/logo.png" title="pinbal" /></a>
             </div>
             <div class="nav-icon">
                 <a href="#" class="right_bt" id="activator"><span> </span> </a>
@@ -303,11 +501,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="menu_box_list">
                            <ul>
                               <li><a href="/board/boardAllList"><span>전체</span></a></li>
-                              <li><a href="#"><span>티켓</span></a></li>
-                              <li><a href="#"><span>앨범</span></a></li>
-                              <li><a href="#"><span>?</span></a></li>
-                              <li><a href="#"><span>goods</span></a></li>
-                              <li><a href="contact.html"><span>Contact</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=ticket"><span>티켓</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=album"><span>앨범</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=clothes"><span>의류</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=goods"><span>goods</span></a></li>
+                              <li><a href="#"><span>Contact</span></a></li>
                               <div class="clear"> </div>
                            </ul>
                         </div>
@@ -333,11 +531,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					                      <div class="form_content">
 					                        <div class="menu_box_list">
 					                           <ul>
-					                              <li><a href="/board/boardAllList"><span>나의 판매 목록</span></a></li>
-					                              <li><a href="#"><span>나의 구매 목록</span></a></li>
+					                              <li><a href="/board/myBoard"><span>나의 판매 목록</span></a></li>
 					                              <li><a href="#"><span>찜 목록</span></a></li>
 					                              <li><a href="#"><span>개인정보 관리</span></a></li>
-					                              <li><a href="#"><span>로그아웃</span></a></li>
+					                              <li><a href="/board/logout"><span>로그아웃</span></a></li>
 					                              <li><a href="contact.html"><span>Contact</span></a></li>
 					                              <div class="clear"> </div>
 					                           </ul>
@@ -399,5 +596,60 @@ License URL: http://creativecommons.org/licenses/by/3.0/
          </div>
       </div>
       <!---//End-header---->
+		<div class="content">
+			<div class="wrap">
+				<div id="main" role="main">
+					<div class="photo_box">
+					<img src="<c:url value="/resources/boardfile/${item.SAVEDFILE }"></c:url>" class="photo" id="img">
+					</div>
+					<input type="hidden" value="${item.FILE_INDEX }" id="file_index">
+					<input type="hidden" value="${item.ITEM_NUM }" id="item_no">
+					<input type="hidden" value="${item.SAVEDFILE }" id="saved_file">
+					<input type="hidden" value="${item.FILENUM }" id="fileNum">
+					<input type="hidden" value="${sessionScope.loginID }" id="loginID">
+					<div class="hold">
+
+						<span class = "left" onclick="pre_index();" style="float:left;"><img src="../resources/images/left.png" width="60px" height="50px"></span>
+	
+						<span class = "right" onclick="next_index();" style="float:right;"><img src="../resources/images/right.png" width="60px" height="50px"></span>
+					</div>
+					<div class="acc_info">
+						<span style="float:left;"><img src="../resources/images/user-img.png" width="45px" height="40px"/>
+						${item.ACC_NAME }
+						${item.re_add } 
+						</span>
+						<span style="float:right;">
+						분류 : ${item.ITEM_OPTION }
+						<br>
+						등록일 : ${item.ITEM_DATE }
+						</span>
+					</div>
+					<hr align="center" width="60%">
+					<div class="item_title">
+						<h1>${item.ITEM_TITLE }</h1>
+					</div>
+					<div class="item_contents">
+						${item.ITEM_CONTENTS }
+					</div>
+					<hr align="center" width="60%">
+					<div class="comments">
+						<textarea rows="5" cols="108" id="comment_contents" placeholder="댓글을 입력 해 주세요."></textarea>
+						<input type="button" onclick="com_submit();" value="댓글 등록" style="float:right;"> 
+					</div>
+					<div class="com">
+
+						<table id="comment">
+ 							<c:forEach var="c" items="${com }">
+							<tr>
+								<td class="td1">${c.acc_name }</td>
+								<td class="td2">${c.comment_contents }</td>
+								<td class="td3">${c.comment_date }</td>
+							</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
    </body>
 </html>

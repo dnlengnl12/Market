@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dyung.kim.service.ItemService;
 import com.dyung.kim.util.FileService;
 import com.dyung.kim.util.PageNavigator;
+import com.dyung.kim.vo.ComVO;
 import com.dyung.kim.vo.FileVO;
 import com.dyung.kim.vo.ItemVO;
 
@@ -36,26 +38,27 @@ public class BoardController {
 	private HttpSession session;
 	@RequestMapping(value="/boardAllList", method=RequestMethod.GET)
 	public String boardList(@RequestParam(value="page",defaultValue="1") int page
+							,@RequestParam(value="item_option", defaultValue="") String item_option
 							,Model model) {
 		
 		
 		int count  =service.countBoard();
 		PageNavigator navi = new PageNavigator(CountPerPage,PagePerGroup,page,count);
-		ArrayList<HashMap<Object, Object>> list = service.selectItemAll(navi.getStartRecord(),navi.getCountPerPage());
-		
+		ArrayList<HashMap<Object, Object>> list = service.selectItemAll(item_option, navi.getStartRecord(),navi.getCountPerPage());
+
 		for(int i=0; i<list.size(); i++) {
 			String add = (String)list.get(i).get("ACC_ADD2");
-			
+			//add = 부산광역시 북구 충장로
 			String[] add1 = add.split(" ");
+			
 			
 			String add_1 = add1[0];
 			String add_2 = add1[1];
 			String re_add = add_1+" "+add_2;
-			
 	
+			
 			list.get(i).put("re_add", re_add);
 		}
-		
 		
 		model.addAttribute("navi",navi);
 		model.addAttribute("list", list);
@@ -76,8 +79,9 @@ public class BoardController {
 		String acc_name = (String)session.getAttribute("loginNick");
 		item.setAcc_id(acc_id);
 		item.setAcc_name(acc_name);
-		System.out.println(item.toString());
+		item.setItem_fileNum(upload.length);
 		String page = service.itemInsert(item);
+		//
 		int item_num = item.getItem_num();
 		for(int i=0; i<upload.length; i++) {
 			if(!upload[i].isEmpty()) {
@@ -97,10 +101,88 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/select", method=RequestMethod.GET)
-	public String boardSelect(String ACC_ID, String ITEM_NUM) {
-		System.out.println(ACC_ID);
-		System.out.println(ITEM_NUM);
+	public String boardSelect(int ITEM_NUM, Model model) {
+		int item_num = ITEM_NUM;
+		HashMap<Object, Object> item = service.selectItem(item_num);
+		String add = (String)item.get("ACC_ADD2");
+		//add = 부산광역시 북구 충장로
+		String[] add1 = add.split(" ");
+		
+		
+		String add_1 = add1[0];
+		String add_2 = add1[1];
+		String re_add = add_1+" "+add_2;
+
+		
+		item.put("re_add", re_add);
+		ArrayList<ComVO> list = service.commentSelect(item_num);
+		model.addAttribute("item", item);
+		model.addAttribute("com", list);
 		return "board/boardSelect";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/nextIndex", method=RequestMethod.GET)
+	public FileVO nextIndex(String file_index, String item_no) {
+		int next_index = Integer.parseInt(file_index)+1;
+		int item_num = Integer.parseInt(item_no);
+		HashMap<Object, Object> map = new HashMap<>();
+		map.put("file_index", next_index);
+		map.put("item_num", item_num);
+		FileVO file = service.nextIndex(map);
+		return file;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/preIndex", method=RequestMethod.GET)
+	public FileVO preIndex(String file_index, String item_no) {
+		int next_index = Integer.parseInt(file_index)-1;
+		int item_num = Integer.parseInt(item_no);
+		HashMap<Object, Object> map = new HashMap<>();
+		map.put("file_index", next_index);
+		map.put("item_num", item_num);
+		FileVO file = service.nextIndex(map);
+		return file;
+		
+	}
+	
+
+	@RequestMapping(value="/myBoard", method=RequestMethod.GET)
+	public String Myboard(Model model
+						,@RequestParam(value="page",defaultValue="1") int page) {
+		int count  =service.countBoard();
+		PageNavigator navi = new PageNavigator(CountPerPage,PagePerGroup,page,count);
+		String acc_id = (String)session.getAttribute("loginID");
+		ArrayList<HashMap<Object, Object>> list = service.selectMyitem(navi.getStartRecord(),navi.getCountPerPage(), acc_id);
+		model.addAttribute("navi",navi);
+		model.addAttribute("list",list);
+		System.out.println(list.toString());
+		return "board/myBoard";
+	}
+
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String accountLogout() {
+	   service.logout();
+	   return "home";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/commentWrite", method=RequestMethod.POST)
+	public ComVO commentWrite(String item_no, String comment_contents) {
+		int item_num = Integer.parseInt(item_no);
+		ComVO comment = new ComVO();
+		String acc_id = (String)session.getAttribute("loginID");
+		String acc_name = (String)session.getAttribute("loginNick");
+		comment.setAcc_id(acc_id);
+		comment.setComment_contents(comment_contents);
+		comment.setItem_num(item_num);
+		comment.setAcc_name(acc_name);
+		int cnt = service.commentInsert(comment);
+		int comment_no = comment.getComment_no();
+		System.out.println(comment_no);
+		ComVO com = service.commentSelectOne(comment_no);
+//		System.out.println(comment2.toString());
+		return com;
 	}
 	
 }

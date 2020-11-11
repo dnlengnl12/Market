@@ -169,7 +169,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
         
         .acc_name{
-
+			color : black;
         	font-size: 35px;
         	margin-left : 10px;
         }
@@ -307,7 +307,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
          <div class="header">
             <div class="wrap">
             <div class="logo">
-               <a href="index.html"><img src="../resources/images/logo.png" title="pinbal" /></a>
+               <a href="/"><img src="../resources/images/logo.png" title="pinbal" /></a>
             </div>
             <div class="nav-icon">
                 <a href="#" class="right_bt" id="activator"><span> </span> </a>
@@ -319,11 +319,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="menu_box_list">
                            <ul>
                               <li><a href="/board/boardAllList"><span>전체</span></a></li>
-                              <li><a href="#"><span>티켓</span></a></li>
-                              <li><a href="#"><span>앨범</span></a></li>
-                              <li><a href="#"><span>?</span></a></li>
-                              <li><a href="#"><span>goods</span></a></li>
-                              <li><a href="contact.html"><span>Contact</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=ticket"><span>티켓</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=album"><span>앨범</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=clothes"><span>의류</span></a></li>
+                              <li><a href="/board/boardAllList?item_option=goods"><span>goods</span></a></li>
+                              <li><a href="#"><span>Contact</span></a></li>
                               <div class="clear"> </div>
                            </ul>
                         </div>
@@ -349,11 +349,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					                      <div class="form_content">
 					                        <div class="menu_box_list">
 					                           <ul>
-					                              <li><a href="/board/boardAllList"><span>나의 판매 목록</span></a></li>
-					                              <li><a href="#"><span>나의 구매 목록</span></a></li>
+					                              <li><a href="/board/myBoard"><span>나의 판매 목록</span></a></li>
 					                              <li><a href="#"><span>찜 목록</span></a></li>
 					                              <li><a href="#"><span>개인정보 관리</span></a></li>
-					                              <li><a href="#"><span>로그아웃</span></a></li>
+					                              <li><a href="/board/logout"><span>로그아웃</span></a></li>
 					                              <li><a href="contact.html"><span>Contact</span></a></li>
 					                              <div class="clear"> </div>
 					                           </ul>
@@ -426,7 +425,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                <ul id="tiles">
                  <!-- These are our grid blocks -->
                  <c:forEach var="map" items="${list }">
-                    <li onclick="location.href='single-page.html';">
+					 <li onclick="location.href='/board/select?ACC_ID=${map.ACC_ID}&ITEM_NUM=${map.ITEM_NUM }'">
                        <img src="<c:url value="/resources/boardfile/${map.SAVEDFILE }"></c:url>" width="282" height="118">
                        <div class="post-info">
                           <div class="post-basic-info">

@@ -20,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/images/fav-icon.png" />
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		
-<!-- <script type="text/javascript" src="../se2/js/service/HuskyEZCreator.js" charset="utf-8"></script> -->
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
 		
 		<meta charset="UTF-8" />
@@ -52,51 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			body input.inpt:focus {
 			  border-color: #999999;
 			}
-			.form{
-				padding: 50px 50px;
-				position: relative;
-				overflow: hidden;
-			  	width: 60%;
-			  	height: 600px;
-			  	margin: 80px auto 00;
-			}
-			.row1{
-			 	size: 1px;
-			 	width: 100%;
-			 	margin-top: 15px;
-			}
-			.row2{
-				text-align: center;
-			}
-			.form .explainList{
-				font-size: 15px;
-				font-weight: 700;
-				margin-right: 50px;
-			}
-			.form .explainList2{
-				font-size: 15px;
-				font-weight: 700;
-				margin-right: 50px;
-				margin-bottom: 100px;
-				text-align: top;
-			}
-			.form .submit{
-				font-size: 17px;
-				width: 70px;
-				height: 42px;
-				background-color: black;
-				color: white;
-				border-radius: 5px;
-			}
 			
-			.form .esc{
-				font-size: 17px;
-				width: 70px;
-				height: 42px;
-				background-color: transparent;
-				color: black;
-				border-radius: 5px;
-			}
 			body h1.login_header {
 			  font-size: 30px;
 			  font-weight: 700;
@@ -123,41 +79,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				 margin: 0px 0px 12px 0px;
 				 outline: 0px solid #d1d8fe;
 			}
-			.title{
-				position: relative;
-				font-size: 16px;
-				width: 60%;
-				height: 18px;
-			
-				padding: 5px 5px;
-			}
-			.price{
-				position: relative;
-				font-size: 16px;
-				width: 30%;
-				height: 18px;
-			
-				padding: 5px 5px;
-			}
-			.optionList{
-				font-size: 15px;
-				font-weight: 500;
-				width: 15%;
-				height: 30px;
-			}
-        	.form .mainExplain{
-        		text-align: center;
-        		font-size: 25px;
-        		font-weight: 500;
-				margin-bottom: 23px;
-			 	text-align: center;
-        	}
+        
 			body span.explain {
 				font-size: 15px;
 				margin: 0px 0px 17px 40px;
 				color: #1e1f76;
 			}
-			
 			body .loginform{
 				text-align: center;
 			}
@@ -189,7 +116,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				margin-bottom: 40px;
 				height: 40px;
 				color: #1b1620;
-				background: transparent;
 				background-color: #7687ba;
 				outline: 0px solid #7687ba;
 				border-radius: 5px;
@@ -235,6 +161,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             text-decoration: none;
             cursor: pointer;
         }
+      
+        .menu a{cursor:pointer;}
+        .menu .hide{display:none;}
+        
+        .acc_menu{
+        	text-align:center;
+        }
+        
+        .acc_name{
+
+        	font-size: 35px;
+        	margin-left : 10px;
+        }
+        
+
+       
         #followQuickMenu { 
         	position:absolute; 
         	top:180px; 
@@ -242,8 +184,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         	margin-right:-670px;
         }
        
-		
-            
+		#footer { 
+			position: fixed; 
+			bottom: 0; 
+			width: 100%; 
+			text-align: center; 
+			
+		}
+
+
         </style>
         
 		<!----webfonts---->
@@ -256,50 +205,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script src="../resources/js/jquery.min.js"></script>
         <!----start-dropdown--->
          <script type="text/javascript">
-			    function formCheck(){
-
-			    	var item_title = document.getElementById("item_title").value;
-			    	var item_price = document.getElementById("item_price").value;
-			    	var item_contents = document.getElementById("item_contents").value;
-			    	var upload = document.getElementById("upload").value;
-
-			    	var flag = true;
-		
-					if(item_title == ""){
-					     alert("제목을 입력해 주세요.");
-					     return false;
-					    }
-				 
-				 
-			    if(item_price == ""){
-			        alert("가격을 입력해 주세요.");
-			        return false;
-			    	}
-			    
-			    
-			    if(item_contents == ""){
-			        alert("글을 입력해 주세요.");
-			        return false;
-			    	}
-			    
-				
-			    if(upload == ""){
-			        alert("파일을 첨부해 주세요");
-			        return false;
-			    	}
-			    	
-			    	if(flag) document.getElementById("formCheck").submit();
-			    
-			    }
-
-
-/*          var oEditors = [];
-         nhn.husky.EZCreator.createInIFrame({
-          oAppRef: oEditors,
-          elPlaceHolder: "ir1",
-          sSkinURI: "../se2/SmartEditor2Skin.html",
-          fCreator: "createSEditor2"
-         }); */
+         
 			var $ = jQuery.noConflict();
 				$(function() {
 					$('#activator').click(function(){
@@ -348,20 +254,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		        }
 			});
 
-			function esc(){
-				location.href="/board/boardAllList";
+			
+			
+			function pagingFormSubmit(currentPage) {
+				var form = document.getElementById('pagingForm');
+				var page = document.getElementById('page');
+				page.value = currentPage;
+				form.submit();
 			}
-
 
 		</script>
 </head>
 	<body>
-       <!---start-wrap---->
+		<!---start-wrap---->
          <!---start-header---->
          <div class="header">
             <div class="wrap">
             <div class="logo">
-               <a href="/"><img src="../resources/images/logo.png" title="pinbal" /></a>
+               <a href="index.html"><img src="../resources/images/logo.png" title="pinbal" /></a>
             </div>
             <div class="nav-icon">
                 <a href="#" class="right_bt" id="activator"><span> </span> </a>
@@ -373,11 +283,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="menu_box_list">
                            <ul>
                               <li><a href="/board/boardAllList"><span>전체</span></a></li>
-                              <li><a href="/board/boardAllList?item_option=ticket"><span>티켓</span></a></li>
-                              <li><a href="/board/boardAllList?item_option=album"><span>앨범</span></a></li>
-                              <li><a href="/board/boardAllList?item_option=clothes"><span>의류</span></a></li>
-                              <li><a href="/board/boardAllList?item_option=goods"><span>goods</span></a></li>
-                              <li><a href="#"><span>Contact</span></a></li>
+                              <li><a href="#"><span>티켓</span></a></li>
+                              <li><a href="#"><span>앨범</span></a></li>
+                              <li><a href="#"><span>?</span></a></li>
+                              <li><a href="#"><span>goods</span></a></li>
+                              <li><a href="contact.html"><span>Contact</span></a></li>
                               <div class="clear"> </div>
                            </ul>
                         </div>
@@ -393,38 +303,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                </form>
             </div>
             <c:choose>
-			<c:when test="${not empty sessionScope.loginID }">
-            	<div class="userinfo">
-            		<div class="user">
-            		<a href="#" id="activator2" class="right_bt"><img src="../resources/images/user-pic.png" title="user-name" /><span class="acc_name">${sessionScope.loginNick }</span></a>
-            		             <div class="box2" id="box2">
-					                <div class="box_content">                                                
-					                  <div class="box_content_center">
-					                      <div class="form_content">
-					                        <div class="menu_box_list">
-					                           <ul>
-					                              <li><a href="/board/myBoard"><span>나의 판매 목록</span></a></li>
-					                              <li><a href="#"><span>찜 목록</span></a></li>
-					                              <li><a href="#"><span>개인정보 관리</span></a></li>
-					                              <li><a href="/board/logout"><span>로그아웃</span></a></li>
-					                              <li><a href="contact.html"><span>Contact</span></a></li>
-					                              <div class="clear"> </div>
-					                           </ul>
-					                        </div>
-					                        <a class="boxclose2" id="boxclose2"><span></span></a>
-					                     </div>                                  
-					                  </div>    
-					               </div> 
-					            </div>         
- <%--            			<ul>
-							<li class="menu"><a href="#" class="right_bt"><img src="../resources/images/user-pic.png" title="user-name" /><span>${sessionScope.loginNick }</span></a>
-							<ul class="hide">
-							<li class="acc_menu">내 정보</li>
-							<li class="acc_menu">내가 쓴글</li>
-							<li class="acc_menu">찜 목록</li>
-						</ul> --%>
-					</div>
-				</div>
+            <c:when test="${not empty sessionScope.loginID }">
+                        <div class="userinfo">
+               <div class="user">
+                  <ul>
+                     <li><a href="#" id="login"><img src="../resources/images/user-pic.png" title="user-name" /><span>${sessionScope.loginNick }</span></a></li>
+  
+                  </ul>
+
+               </div>
+            </div>
             </c:when>
             <c:otherwise>
             <div class="userinfo">
@@ -434,6 +322,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   
                   </ul>
                       <!-- Trigger/Open The Modal -->
+ 
  
                    <!-- The Modal -->
                    <div id="login_Modal" class="modal">
@@ -467,52 +356,123 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="clear"> </div>
          </div>
       </div>
-      <!---//End-header---->
+      
+      
+      
+		<!---//End-header---->
 			<!---start-content---->
 		<div class="content">
 			<div class="wrap">
-			 <div id="main" role="main">
-			 	<div class="form">
-				 	<form action="/board/register" method="post" enctype="multipart/form-data" id="formCheck">
-				 		<div class="mainExplain">글 등록</div>
-				 		<hr align="left" size="2px" color="black">
-				 		<br>
-				 		<span class="explainList">분류</span>
-				 		<select name="item_option" class="optionList">
-				 			<option value="ticket">티켓</option>
-				 			<option value="album">앨범</option>
-				 			<option value="clothes">의류</option>
-				 			<option value="goods">goods</option>
-				 		</select>
-				 		<hr class="row1" align="left">
-				 		<br>
-				     	<span class="explainList">제목</span>
-				    	<input type="text" placeholder="제목을 입력 해 주세요." name="item_title" id="item_title" class="title">
-				  		<hr class="row1" align="left">
-				  		<br>
-				  		<span class="explainList">가격</span>
-				  		<input type="text" placeholder="가격을 입력 해 주세요." name="item_price" id="item_price" class="price">원
-				  		<hr class="row1" align="left">
-				  		<br>
-				  		<span class="explainList2">내용</span>
-				  		<textarea rows="10" cols="100" name="item_contents" id="item_contents"></textarea>
-				  		<hr class="row1" align="left">
-				  		<br>
-				  		<span class="explainList">파일 첨부</span>
-				  		<input type="file" name="upload" multiple="multiple" id="upload">
-				  		<hr class="row1" align="left">
-				  		<br>
-				  		<div class="row2">
-				  		<input type="button" value="등록" class="submit" onclick="formCheck();">
-				  		<input type="button" value="취소" class="esc" onclick="esc();">
-				  		</div>
-				  		
-				 	</form>
-			 	</div>
-			 </div>
+				<div id="main" role="main">
+				<ul id="tiles">
+			 <c:forEach var="l" items="${list}" varStatus ="status">
+			 <li onclick="location.href='/board/select?ACC_ID=${l.ACC_ID}&ITEM_NUM=${l.ITEM_NUM }'">
+ 			      <img src="<c:url value="/resources/boardfile/${l.SAVEDFILE }"></c:url>" width="282" height="118">
+					<div class="post-info">
+                          <div class="post-basic-info">
+                             <h3><a href="#">${l.ITEM_TITLE }</a></h3>
+                             <span><a href="#"><label> </label>${l.ACC_NAME }</a></span>
+                             <p>${l.ITEM_CONTENTS }</p>
+                             <input type="hidden" value="${l.ITEM_NUM }" name="item_num">
+                          </div>
+                          <div class="post-info-rate-share">
+                             <div class="rateit">
+                                <span> </span>
+                             </div>
+                             <div class="post-share">
+                                <span></span>
+                             </div>
+                             <div class="clear"> </div>
+                          </div>
+                       </div>
+				</li>
+			 </c:forEach>
+			 	</ul>
+			 	
+				</div>
+			</div>
 		</div>
-	</div>
-			      
+      
+      <script src="../resources/js/jquery.imagesloaded.js"></script>
+        <script src="../resources/js/jquery.wookmark.js"></script>
+        <script type="text/javascript">
+          (function ($){
+            var $tiles = $('#tiles'),
+                $handler = $('li', $tiles),
+                $main = $('#main'),
+                $window = $(window),
+                $document = $(document),
+                options = {
+                  autoResize: true, // This will auto-update the layout when the browser window is resized.
+                  container: $main, // Optional, used for some extra CSS styling
+                  offset: 20, // Optional, the distance between grid items
+                  itemWidth:280 // Optional, the width of a grid item
+                };
+            /**
+             * Reinitializes the wookmark handler after all images have loaded
+             */
+            function applyLayout() {
+              $tiles.imagesLoaded(function() {
+                // Destroy the old handler
+                if ($handler.wookmarkInstance) {
+                  $handler.wookmarkInstance.clear();
+                }
+      
+                // Create a new layout handler.
+                $handler = $('li', $tiles);
+                $handler.wookmark(options);
+              });
+            }
+            /**
+             * When scrolled all the way to the bottom, add more tiles
+             */
+            /* function onScroll() {
+              // Check if we're within 100 pixels of the bottom edge of the broser window.
+              var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
+                  closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+      
+              if (closeToBottom) {
+                // Get the first then items from the grid, clone them, and add them to the bottom of the grid
+                var $items = $('li', $tiles),
+                    $firstTen = $items.slice(0, 10);
+                $tiles.append($firstTen.clone());
+      
+                applyLayout();
+              }
+            };
+       */
+            // Call the layout function for the first time
+            applyLayout();
+      
+            // Capture scroll event.
+            $window.bind('scroll.wookmark', onScroll);
+          })(jQuery);
+        </script>
+  
+		                
+	  
+		<form id="pagingForm" method="get" action="/board/myBoard">
+			<input type="hidden" name="page" id="page" />
+		</form>
+			
+		<div id="footer">
+		<!-- 페이지 이동 부분 -->                      
+			<a href="javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})">◁◁ </a> &nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage - 1})">◀</a> &nbsp;&nbsp;
+		
+			<c:forEach var="counter" begin="${navi.startPageGroup}" end="${navi.endPageGroup}"> 
+				<c:if test="${counter == navi.currentPage}"><b></c:if>
+					<a href="javascript:pagingFormSubmit(${counter})">${counter}</a>&nbsp;
+				<c:if test="${counter == navi.currentPage}"></b></c:if>
+			</c:forEach>
+			&nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage + 1})">▶</a> &nbsp;&nbsp;
+			<a href="javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})">▷▷</a>
+		<br>
+		<!-- /페이지 이동 끝 -->    
+
+		</div> 
 </body>
+
 			
 </html>

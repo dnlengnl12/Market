@@ -15,6 +15,7 @@
 				,item_title
 				,item_contents
 				,item_price
+				,item_fileNum
 			)values(
 				item_db_seq.nextval
 				,#{acc_id}
@@ -23,13 +24,14 @@
 				,#{item_title}
 				,#{item_contents}
 				,#{item_price}
+				,#{item_fileNum}
 			)
 			<selectKey keyProperty="item_num" resultType="int" order="AFTER">
 				select item_db_seq.currval
 				from dual
 			</selectKey>
 	</insert>
-	<select id="selectItemAll" resultType="hashmap">
+	<select id="selectItemAll" parameterType="string" resultType="hashmap">
  		select
 			a.acc_id		as	acc_id
 			,a.acc_name		as	acc_name
@@ -52,6 +54,24 @@
             f.item_num = i.item_num
             and
             f.file_index = 1
+            <if test="_parameter != ''">
+            	<if test="_parameter == 'ticket'">
+            		and
+            		i.item_option = 'ticket'
+            	</if>
+            	<if test="_parameter == 'album'">
+            		and
+            		i.item_option = 'album'
+            	</if>
+            	<if test="_parameter == 'clothes'">
+            		and
+            		i.item_option = 'clothes'
+            	</if>
+            	<if test="_parameter == 'goods'">
+            		and
+            		i.item_option = 'goods'
+            	</if>
+            </if>
         order by
         	item_date desc
 	</select>
@@ -87,5 +107,120 @@
 	 from
 	 	item_db
 	
+	</select>
+	<select id="selectItem" parameterType="int" resultType="hashmap">
+	select
+		i.acc_id as acc_id
+		,i.acc_name as acc_name
+		,i.item_num as item_num
+		,i.item_title as item_title
+		,i.item_price as item_price
+		,i.item_option as item_option
+		,i.item_contents as item_contents
+		,i.item_date as item_date
+		,i.item_hits as item_hits
+		,i.item_fileNum as fileNum
+		,f.savedfile as savedfile
+		,f.file_index as file_index
+		,a.acc_add2 as acc_add2
+	from
+		item_db i,
+		file_db f,
+		account_db a
+	where
+		a.acc_id = i.acc_id
+		and
+		i.item_num = #{item_num}
+		and
+		i.item_num = f.item_num
+		and
+		f.file_index = 1
+	</select>
+	<select id="nextIndex" parameterType="hashmap" resultType="file">
+	select
+		f.file_index as file_index
+		,f.savedfile as savedfile
+	from
+		item_db i,
+		file_db f
+	where
+		f.file_index = #{file_index}
+		and
+		i.item_num = f.item_num
+		and
+		i.item_num = #{item_num}
+	</select>
+	
+	<select id="selectMyitem" parameterType="string" resultType="hashmap">
+	select
+		i.acc_id as acc_id
+		,i.acc_name as acc_name
+		,i.item_num as item_num
+		,i.item_title as item_title
+		,i.item_price as item_price
+		,i.item_option as item_option
+		,i.item_contents as item_contents
+		,i.item_date as item_date
+		,i.item_hits as item_hits
+		,i.item_fileNum as fileNum
+		,f.savedfile as savedfile
+		,f.file_index as file_index
+		
+	from
+		item_db i,
+		file_db f,
+		account_db a
+	where
+		a.acc_id = i.acc_id
+		and
+		i.item_num = f.item_num
+		and
+		i.acc_id = #{acc_id}
+		and
+		f.file_index = 1		
+	</select>
+	<insert id="commentInsert" parameterType="comment">
+	insert into
+		com_db(
+			comment_no
+			,acc_id
+			,acc_name
+			,item_num
+			,comment_contents
+		)values(
+			comment_db_seq.nextval
+			,#{acc_id}
+			,#{acc_name}
+			,#{item_num}
+			,#{comment_contents}
+		)
+		<selectKey keyProperty="comment_no" resultType="int" order="AFTER">
+				select comment_db_seq.currval
+				from dual
+		</selectKey>
+	</insert>
+	<select id="commentSelect" parameterType="int" resultType="comment">
+	select
+		acc_id
+		,acc_name
+		,comment_contents
+		,comment_date
+	from
+		com_db
+	where
+		item_num = #{item_num}
+	order by
+		comment_date asc
+	</select>
+	<select id="commentSelectOne" parameterType="int" resultType="comment">
+	select
+		acc_id
+		,acc_name
+		,comment_contents
+		,comment_date
+	from
+		com_db
+	where
+		comment_no = #{comment_no}
 	</select>
 </mapper>

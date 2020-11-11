@@ -43,3 +43,17 @@ alter table item_db rename column price to item_price;
 
 create sequence file_db_seq;
 alter table file_db add file_index number;
+alter table item_db add item_fileNum Number not null;
+
+create table comment_db(
+    comment_no          number              primary key
+    ,acc_id             varchar2(100)       not null
+    ,item_num           number              not null
+    ,comment_contents   varchar2(1000)      not null
+    ,comment_index      number              not null
+);
+
+alter table comment_db add constraint comment_db_fk1 foreign key(acc_id) references account_db(acc_id);
+alter table comment_db add constraint comment_db_fk2 foreign key(item_num) references item_db(item_num);
+create sequence comment_db_seq;
+alter table comment_db add comment_index number default 1 not null;

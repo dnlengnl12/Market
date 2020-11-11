@@ -7,6 +7,7 @@
 		<typeAlias type="com.dyung.kim.vo.ItemVO" alias="item"/>
 		<typeAlias type="com.dyung.kim.vo.accountVO" alias="account"/>
 		<typeAlias type="com.dyung.kim.vo.FileVO" alias="file"/>
+		<typeAlias type="com.dyung.kim.vo.ComVO" alias="comment"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/itemMapper.xml"/>

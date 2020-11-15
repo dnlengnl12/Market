@@ -28,14 +28,28 @@ public class AccountDAO {
 	public accountVO accountOne(String acc_id) {
 		accountVO account = null;
 		AccountMapper mapper = session.getMapper(AccountMapper.class);
-		
+
 		try {
 			account = mapper.accountOne(acc_id);
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}		
+	//	System.out.println("account에서 뭘 받아오는 지 봅시다 ㅇㅅㅇ: " + account);
+		
 		return account;
 	}
 	
+	public int accountUpdate(accountVO account) {
+		AccountMapper mapper = session.getMapper(AccountMapper.class);
+		int cnt = 0;
+		
+		try {
+			cnt = mapper.accountUpdate(account);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(cnt);
+		return cnt;
+	}
 	
 }

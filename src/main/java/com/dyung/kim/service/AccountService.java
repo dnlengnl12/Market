@@ -47,6 +47,37 @@ public class AccountService {
 		}
 		return page;
 	}
+	
+	public accountVO myInformation(String acc_id) {
+		return dao.accountOne(acc_id);		
+	}
+	
+	public String accountUpdate(accountVO account) {
+		int cnt = dao.accountUpdate(account);
+		
+		if (cnt == 0 ) {
+			System.out.println("업데이트 실패");
+		}else {
+			System.out.println("업데이트 성공");
+		}
+
+		return "redirect:/account/accountJoin";
+	}
+
+	public boolean idCheck(String acc_id) {
+	      accountVO account = dao.accountOne(acc_id);
+	      boolean data;
+	      
+	      System.out.println(acc_id);
+	      System.out.println(account);
+	      
+	      if(account != null) {
+	         data = false;
+	      }else {data = true;}
+	      
+	         System.out.println(data);
+	         return data;
+	   }
 
 }
 	

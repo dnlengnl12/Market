@@ -32,10 +32,30 @@
 			acc_id
 			,acc_name
 			,acc_pw
+			,acc_add
+			,acc_add2
+			,acc_add3
+			,acc_phone
+			,acc_email
 		from
 			account_db
 		where
 			acc_id = #{acc_id}
 	</select>
+	
+	<update id="accountUpdate" parameterType="account">
+		update
+			account_db
+		set
+			acc_name = #{acc_name}
+			,acc_pw = #{acc_pw}
+			,acc_add = #{acc_add}
+			,acc_add2 = #{acc_add2}
+			,acc_add3 = #{acc_add3}
+			,acc_phone = #{acc_phone}
+			,acc_email = #{acc_email}
+		where
+			acc_id = #{acc_id}
+	</update>
 	
 </mapper>

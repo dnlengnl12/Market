@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dyung.kim.vo.CartVO;
 import com.dyung.kim.vo.ComVO;
 import com.dyung.kim.vo.FileVO;
 import com.dyung.kim.vo.ItemVO;
@@ -28,12 +29,11 @@ public class ItemDAO {
 		}
 		return cnt;
 	}
+	
 	public ArrayList<HashMap<Object, Object>> selectItemAll(String item_option, int startRecord,int countPerPage) {
 		ArrayList<HashMap<Object, Object>> map = null;
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		RowBounds rb = new RowBounds(startRecord,countPerPage);
-		
-
 		
 		try {
 			map = mapper.selectItemAll(item_option, rb);
@@ -42,6 +42,7 @@ public class ItemDAO {
 		}
 		return map;
 	}
+	
 	public int countBoard() {
 		int count =0;
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
@@ -114,6 +115,7 @@ public class ItemDAO {
 		
 		return cnt;
 	}
+	
 	public ArrayList<ComVO> commentSelect(int item_num) {
 		ArrayList<ComVO> list = null;
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
@@ -124,6 +126,7 @@ public class ItemDAO {
 		}
 		return list;
 	}
+	
 	public ComVO commentSelectOne(int comment_no) {
 		ComVO com = null;
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
@@ -133,5 +136,68 @@ public class ItemDAO {
 			e.printStackTrace();
 		}
 		return com;
+	}
+	
+
+	public int insertCart(CartVO cart) {
+		int result = 0;
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		
+		try {
+			result = mapper.insertCart(cart);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public int deleteCart(int item_num) {
+		int result = 0;
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		
+		try {
+			result = mapper.deleteCart(item_num);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<HashMap<Object, Object>> listCart(String acc_id){
+		ArrayList<HashMap<Object, Object>> list = null;
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		
+		try {
+			list = mapper.listCart(acc_id);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public ItemVO modifyContents(int item_num) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		ItemVO modify = null;
+		try {
+			modify = mapper.modifyContents(item_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return modify;
+	}
+	
+	public int updataeContents(ItemVO item) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		
+		int update = 0;
+		try {
+			update = mapper.updataeContents(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return update;
 	}
 }

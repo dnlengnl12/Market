@@ -14,7 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <html>
 <head>
-		<title>Pinball Website Template | Home :: w3layouts</title>
+		<title>니꺼내꺼</title>
 		<link href="../resources/css/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/images/fav-icon.png" />

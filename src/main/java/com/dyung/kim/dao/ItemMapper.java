@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 
+import com.dyung.kim.vo.CartVO;
 import com.dyung.kim.vo.ComVO;
 import com.dyung.kim.vo.FileVO;
 import com.dyung.kim.vo.ItemVO;
@@ -20,4 +21,12 @@ public interface ItemMapper {
 	public int commentInsert(ComVO comment);
 	public ArrayList<ComVO> commentSelect(int item_num);
 	public ComVO commentSelectOne(int comment_no);
+	
+	public int insertCart(CartVO cart);
+	public int deleteCart(int item_num);
+	public ArrayList<HashMap<Object, Object>> listCart(String acc_id);
+	
+	public ItemVO modifyContents(int item_num); 
+	public int updataeContents(ItemVO item);
+
 }

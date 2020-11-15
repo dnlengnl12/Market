@@ -7,4 +7,5 @@ public interface AccountMapper {
 	// 회원가입 인설트
 	public int accountInsert(accountVO account);
 	public accountVO accountOne(String acc_id);
+	public int accountUpdate(accountVO account);
 }

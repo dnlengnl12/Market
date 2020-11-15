@@ -179,6 +179,7 @@
 		and
 		f.file_index = 1		
 	</select>
+	
 	<insert id="commentInsert" parameterType="comment">
 	insert into
 		com_db(
@@ -199,6 +200,7 @@
 				from dual
 		</selectKey>
 	</insert>
+	
 	<select id="commentSelect" parameterType="int" resultType="comment">
 	select
 		acc_id
@@ -212,6 +214,7 @@
 	order by
 		comment_date asc
 	</select>
+	
 	<select id="commentSelectOne" parameterType="int" resultType="comment">
 	select
 		acc_id
@@ -223,4 +226,80 @@
 	where
 		comment_no = #{comment_no}
 	</select>
+	
+	<insert id="insertCart" parameterType="cart">
+		insert into
+			cart_db(
+				cart_no
+				,acc_id
+				,item_num
+			)values(
+				cart_db_seq.nextval
+				,#{acc_id}
+				,#{item_num}
+			)	
+	</insert>
+	
+	<delete id="deleteCart" parameterType="int">
+		delete from
+			cart_db
+		where
+			item_num = #{item_num}	
+	</delete>
+	
+	<select id="listCart" parameterType="String" resultType="hashmap">
+		select
+			a.acc_id	as acc_id
+			,i.item_num	as item_num
+			,i.acc_name as acc_name
+			,i.item_title as item_title
+			,i.item_price as item_price
+			,i.item_option as item_option
+			,i.item_contents as item_contents
+			,i.item_date as item_date
+			,i.item_hits as item_hits
+			,i.item_fileNum as fileNum
+			,f.savedfile as savedfile
+			,f.file_index as file_index
+		from
+			item_db i,
+			cart_db c,
+			account_db a,
+			file_db f
+		where
+			c.acc_id = a.acc_id
+		and
+			c.item_num = i.item_num
+		and
+			i.item_num = f.item_num
+		and 
+			a.acc_id = #{acc_id}
+	</select>
+	
+	<select id="modifyContents" parameterType="int" resultType="item">
+		select
+			i.acc_id as acc_id,
+			i.item_num as item_num,
+			i.item_contents as item_contents
+		from
+			item_db i,
+			account_db a
+		where
+		
+			i.item_num =#{item_num}
+			and 
+			i.acc_id = a.acc_id
+			
+	</select>
+	
+	<update id="updataeContents" parameterType="item">
+		update
+			item_db 
+			
+		set
+			item_contents = #{item_contents}
+		where
+			item_num = #{item_num}
+	</update>
+	
 </mapper>

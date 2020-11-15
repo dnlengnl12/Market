@@ -13,7 +13,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <html>
    <head>
-      <title>Pinball Website Template | Home :: w3layouts</title>
+      <title>니꺼내꺼</title>
       <link href="../resources/css/style.css" rel='stylesheet' type='text/css' />
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="shortcut icon" type="image/x-icon" href="../resources/images/fav-icon.png" />
@@ -350,8 +350,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					                        <div class="menu_box_list">
 					                           <ul>
 					                              <li><a href="/board/myBoard"><span>나의 판매 목록</span></a></li>
-					                              <li><a href="#"><span>찜 목록</span></a></li>
-					                              <li><a href="#"><span>개인정보 관리</span></a></li>
+					                              <li><a href="/board/myChoiceBoard?acc_id=${sessionScope.loginID} "><span>찜 목록</span></a></li>
+					                              <li><a href="/account/accountJoin"><span>개인정보 관리</span></a></li>
 					                              <li><a href="/board/logout"><span>로그아웃</span></a></li>
 					                              <li><a href="contact.html"><span>Contact</span></a></li>
 					                              <div class="clear"> </div>

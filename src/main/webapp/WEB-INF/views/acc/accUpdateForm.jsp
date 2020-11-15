@@ -283,6 +283,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			
 		}
 		.text1{
+			align: left;
 			font-size:"나눔고딕";
 			width: 400px;
 			font-size:20px;
@@ -291,14 +292,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		}
 		.text2{
 			
-			width: 400px;
+			width: 280px;
 			font-size:20px;
 			
 			
 		}
 		.text3{
+			color:#465f65;
 			font-weight:bold;
-			color: #465f65;
 		}
         </style>
         
@@ -626,29 +627,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="content">
 			<div class="wrap">
 				<div id="main" role="main" class="main_design">
+					<form action="/account/accountUpdate" method="post" onsubmit="return formCheck()">
+						<input type="hidden" value="${sessionScope.loginID }" >
+						<input type="hidden" value="${list.acc_id }" name = "acc_id">
+						<div class="text1">
+						<span class="text3">아이디:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input type="text" class="text2"value="${list.acc_id }" readonly="readonly">
+						<br>
+						<span class="text3">비밀번호:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  <input type="password" class="text2"id="acc_pw" name= "acc_pw" value="${list.acc_pw }">
+						<br>
+						<span class="text3">이름:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_name" name="acc_name" value="${list.acc_name }">
+						<br>
+						<span class="text3">우편번호:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_add" name="acc_add" value="${list.acc_add }">
+						<br>
+						<span class="text3">주소:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_add2" name="acc_add2" value="${list.acc_add2 }">
+						<br>
+						<span class="text3">상세주소:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_add3" name="acc_add3" value="${list.acc_add3 }">
+						<br>
+						 <span class="text3">핸드폰 번호:&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_phone" name="acc_phone" value="${list.acc_phone }">
+						<br>
+						<span class="text3">email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" class="text2"id="acc_email" name="acc_email" value="${list.acc_email }">
+						<br>
+						</div>
+						<input type="submit" value="수정하기" class="bt">
 
-						
-						<div class="text2">
-								<span class="text3">아이디:</span> ${list.acc_id } 
-								<br>
-								<span class="text3">비밀번호:</span> ${list.acc_pw }
-								<br>
-								<span class="text3">이름:</span> ${list.acc_name } 	
-								<br>
-								<span class="text3">우편번호:</span> ${list.acc_add } 
-								<br>
-								<span class="text3">주소:</span> ${list.acc_add2 }
-								<br>
-								<span class="text3">상세주소:</span>${list.acc_add3 }
-								<br>
-								<span class="text3">핸드폰번호:</span> ${list.acc_phone }
-								<br>
-								<span class="text3">이메일:</span> ${list.acc_email }
-								<br>
-								<br>
-								</div>
-								<a href="/account/accUpdateForm?acc_id=${list.acc_id }"> <input type="button" value="개인 정보 수정" class="bt"> </a>
-				
+					</form>
 				</div>
 			</div>
 		</div>

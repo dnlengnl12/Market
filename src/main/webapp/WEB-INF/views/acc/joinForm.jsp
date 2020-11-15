@@ -571,9 +571,9 @@ body .container .content .signup-cont {
       var email1 = document.getElementById("email1").value;
       var email2 = document.getElementById("email2").value;
       /* var selectStyle = document.getElementById("selectStyle").value; */
- 	
-	  document.getElementById("acc_phone").value=phone1+"-"+phone2+"-"+phone3;
-	  document.getElementById("acc_email").value=email1+"@"+email2;
+    
+     document.getElementById("acc_phone").value=phone1+"-"+phone2+"-"+phone3;
+     document.getElementById("acc_email").value=email1+"@"+email2;
       if(acc_id == ''){
             alert("아이디를 입력해 주세요.");
             return false;
@@ -632,16 +632,16 @@ body .container .content .signup-cont {
         }
    } 
      $(function(){
-		$("#selectStyle").keyup(function(){
-			if(this.value != "etc"){
-				document.getElementById("email2").value=selectStyle;
-			}
+      $("#selectStyle").keyup(function(){
+         if(this.value != "etc"){
+            document.getElementById("email2").value=selectStyle;
+         }
 
-		});
+      });
       });
 
    
-  	  $(function() {
+       $(function() {
           $(".phoneStyle").keyup (function () {
               var charLimit = $(this).attr("maxlength");
               if (this.value.length >= charLimit) {
@@ -667,18 +667,18 @@ body .container .content .signup-cont {
 
    } */
 
-   /* function idCheck2() {
+   function idCheck2() {
       $.ajax({
-         url: "/idCheck",
+         url: "/account/idCheck",
          type: "post",
-         data: { member_id: $("#member_id").val() },
+         data: { acc_id: $("#acc_id").val() },
          success: function(data) {
-            if(data == "1"){
+            if(data == true){
                alert("사용할 수 있는 아이디입니다.");
-               idCheckflag = true;
+                 
             } else {
                alert("사용할 수 없는 아이디입니다.");
-               idCheckflag = false;
+                
             }
          },
          error: function(e) {
@@ -687,7 +687,7 @@ body .container .content .signup-cont {
          }
 
       }); 
-   }*/
+   }
 
    /* function childForm(){
       var parentForm = window.open('/searchSchool','학교검색',left='+(screen.availWidth-1000)/2+',top='+(screen.availHeight-600)/2+',
@@ -752,24 +752,24 @@ body .container .content .signup-cont {
                                 
                              
          
-                         	<span class="explain" >우편번호</span>
-                        	 <br>
-                         	 <input type="hidden" id="confmKey" name="confmKey" value=""  >
-                         	 <input type="text" id="zipNo" name="acc_add" readonly style="width:100px" class="Address">
-                          	 <input type="button" value="주소검색" onclick="goPopup();">
-							 <br>	                          
+                            <span class="explain" >우편번호</span>
+                            <br>
+                             <input type="hidden" id="confmKey" name="confmKey" value=""  >
+                             <input type="text" id="zipNo" name="acc_add" readonly style="width:100px" class="Address">
+                              <input type="button" value="주소검색" onclick="goPopup();">
+                      <br>                             
                           
-                        	<span class="explain">도로명주소</span>
-                         	<br>  
-                         	<input type="text" id="roadAddrPart1" name="acc_add2" style="width:60%" class="Address4">
+                           <span class="explain">도로명주소</span>
+                            <br>  
+                            <input type="text" id="roadAddrPart1" name="acc_add2" style="width:60%" class="Address4">
                         
-                        	 <br>	
-                         	 <span class="explain">상세주소</span>
-                         	 <br>
+                            <br>   
+                             <span class="explain">상세주소</span>
+                             <br>
                              <input type="text" id="addrDetail" name="acc_add3" style="width:60%" value="" class="Address2">
                               
                          
-                        	  <br>
+                             <br>
                              <span class="explain">핸드폰 번호</span>
                              <br>
                              
@@ -785,25 +785,25 @@ body .container .content .signup-cont {
                              <input type="text" class="emailpt" id="email1">
                              <b> @</b>
                              <input type="text" id="email2" value="" ReadOnly="true" class="emailpt2">
-		                        <select name="emailCheck" id="selectStyle" onchange="SetEmailTail(emailCheck.options[this.selectedIndex].value)" class="emailpt3">
-		                           <option value="notSelected" >::선택하세요::</option>
-		                           <option value="etc">직접입력</option>
-		                           <option value="naver.com">naver.com</option>
-		                           <option value="nate.com">nate.com</option>
-		                           <option value="empal.com">empal.com</option>
-		                           <option value="hotmail.com">hotmail.com</option>
-		                           <option value="lycos.co.kr">lycos.co.kr</option>
-		                           <option value="msn.com">msn.com</option>
-		                           <option value="hanmail.net">hanmail.net</option>
-		                           <option value="yahoo.com">yahoo.com</option>
-		                           <option value="korea.com">korea.com</option>
-		                           <option value="kornet.net">kornet.net</option>
-		                           <option value="yahoo.co.kr">yahoo.co.kr</option>
-		                           <option value="kebi.com">kebi.com</option>
-		                           <option value="orgio.net">orgio.net</option>
-		                           <option value="paran.com">paran.com</option>    
-		                           <option value="gmail.com">gmail.com</option>
-		                        </select>
+                              <select name="emailCheck" id="selectStyle" onchange="SetEmailTail(emailCheck.options[this.selectedIndex].value)" class="emailpt3">
+                                 <option value="notSelected" >::선택하세요::</option>
+                                 <option value="etc">직접입력</option>
+                                 <option value="naver.com">naver.com</option>
+                                 <option value="nate.com">nate.com</option>
+                                 <option value="empal.com">empal.com</option>
+                                 <option value="hotmail.com">hotmail.com</option>
+                                 <option value="lycos.co.kr">lycos.co.kr</option>
+                                 <option value="msn.com">msn.com</option>
+                                 <option value="hanmail.net">hanmail.net</option>
+                                 <option value="yahoo.com">yahoo.com</option>
+                                 <option value="korea.com">korea.com</option>
+                                 <option value="kornet.net">kornet.net</option>
+                                 <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                 <option value="kebi.com">kebi.com</option>
+                                 <option value="orgio.net">orgio.net</option>
+                                 <option value="paran.com">paran.com</option>    
+                                 <option value="gmail.com">gmail.com</option>
+                              </select>
                         
                         <input type="hidden" id="acc_email" name="acc_email">
                      

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dyung.kim.dao.ItemDAO;
-import com.dyung.kim.dao.ItemMapper;
+import com.dyung.kim.vo.CartVO;
 import com.dyung.kim.vo.ComVO;
 import com.dyung.kim.vo.FileVO;
 import com.dyung.kim.vo.ItemVO;
@@ -82,5 +82,34 @@ public class ItemService {
 	public ComVO commentSelectOne(int comment_no) {
 		ComVO com = dao.commentSelectOne(comment_no);
 		return com;
+	}
+	
+	public int insertCart(CartVO cart) {
+		return dao.insertCart(cart);
+	}
+	
+	public int deleteCart(int item_num) {
+		return dao.deleteCart(item_num);
+	}
+	
+	public ArrayList<HashMap<Object, Object>> listCart(String acc_id) {
+		return dao.listCart(acc_id);
+	}
+	
+	public ItemVO modifyContents(int item_num) {
+		return dao.modifyContents(item_num);
+	}
+	
+	public String updataeContents(ItemVO item) {
+		int update = dao.updataeContents(item);
+		
+		if (update == 0) {
+			
+			System.out.println("업데이트 실패!");
+		}else {
+			System.out.println("업데이트 성공!");
+		
+		}
+		return "redirect:/";
 	}
 }

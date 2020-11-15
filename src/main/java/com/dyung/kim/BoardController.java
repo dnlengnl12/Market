@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dyung.kim.service.ItemService;
 import com.dyung.kim.util.FileService;
 import com.dyung.kim.util.PageNavigator;
+import com.dyung.kim.vo.CartVO;
 import com.dyung.kim.vo.ComVO;
 import com.dyung.kim.vo.FileVO;
 import com.dyung.kim.vo.ItemVO;
@@ -32,7 +33,7 @@ public class BoardController {
 	@Autowired
 	private com.dyung.kim.service.FileService service2;
 	
-	private String uploadPath="C:\\Users\\dnlen\\Documents\\workspace-spring-tool-suite-4-4.7.1.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MarketProject\\resources\\boardfile";
+	private String uploadPath="C:\\WorkspaceSTS\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MarketProject\\resources\\boardfile";
 	
 	@Autowired
 	private HttpSession session;
@@ -156,7 +157,7 @@ public class BoardController {
 		ArrayList<HashMap<Object, Object>> list = service.selectMyitem(navi.getStartRecord(),navi.getCountPerPage(), acc_id);
 		model.addAttribute("navi",navi);
 		model.addAttribute("list",list);
-		System.out.println(list.toString());
+	//	System.out.println(list.toString());
 		return "board/myBoard";
 	}
 
@@ -179,10 +180,47 @@ public class BoardController {
 		comment.setAcc_name(acc_name);
 		int cnt = service.commentInsert(comment);
 		int comment_no = comment.getComment_no();
-		System.out.println(comment_no);
+	//	System.out.println(comment_no);
 		ComVO com = service.commentSelectOne(comment_no);
 //		System.out.println(comment2.toString());
 		return com;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/insertCart", method=RequestMethod.GET)
+	public int insertCart(String acc_id, int item_num)  {
+		CartVO cart = new CartVO(acc_id, item_num);
+	//	System.out.println("acc_id: " + acc_id + ", item_num: " + item_num);
+		return service.insertCart(cart);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteCart", method=RequestMethod.GET)
+	public int deleteCart(int item_num) {
+		
+		return service.deleteCart(item_num);
+	}
+	
+	@RequestMapping(value="/myChoiceBoard", method=RequestMethod.GET)
+	public String myChoiceBoard(String acc_id, Model model) {
+		System.out.println("acc_id: " + acc_id);
+		System.out.println("확인해봅시다~\n" + service.listCart(acc_id));
+		
+		model.addAttribute("list", service.listCart(acc_id));
+		
+		return "board/myChoiceBoard";
+	}
+	
+	@RequestMapping(value="/boardModifyForm", method =RequestMethod.GET)
+	public String boardModifyForm(int item_num, Model model) {
+		
+		model.addAttribute("contents",service.modifyContents(item_num));
+		return "board/boardModifyForm";
+	}
+	
+	@RequestMapping(value="/boardModify", method =RequestMethod.POST)
+	public String boardModify(ItemVO item) {
+			
+		return service.updataeContents(item);
+	}	
 }

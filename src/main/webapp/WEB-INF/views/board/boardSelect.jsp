@@ -13,7 +13,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <html>
    <head>
-      <title>Pinball Website Template | Home :: w3layouts</title>
+      <title>니꺼내꺼</title>
       <link href="../resources/css/style.css" rel='stylesheet' type='text/css' />
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="shortcut icon" type="image/x-icon" href="../resources/images/fav-icon.png" />
@@ -468,11 +468,52 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				},
 				error : function(e){
 					alert("통신 실패");
-					consol.log(e);
+					console.log(e);
 				}
 			});
 			document.getElementById("comment_contents").value = "";
 		}
+
+		function shoppingBasket(){
+			var myChoice = document.getElementById("myChoice");
+
+			if(myChoice.src.match("black_heart")){
+				myChoice.src = "../resources/images/red_heart.png";
+				$.ajax({
+					url:"/board/insertCart",
+					type:"get",
+					datatype:"json",
+					data:{
+						acc_id : $("#acc_id").val(),
+						item_num : $("#item_no").val()
+					},
+					success: function(data){
+						alert("해당 물품을 찜했습니다!");
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}else{
+				myChoice.src = "../resources/images/black_heart.png";
+				$.ajax({
+					url:"/board/deleteCart",
+					type:"get",
+					datatype:"json",
+					data:{
+						item_num: $("#item_no").val()
+					},
+					success: function(data){
+						alert("찜을 취소했어요...");
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}
+		}
+
+		function goForm(){location.href="/board/boardModifyForm?item_num=${item.ITEM_NUM}";}
       </script>
       
       
@@ -614,9 +655,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<span class = "right" onclick="next_index();" style="float:right;"><img src="../resources/images/right.png" width="60px" height="50px"></span>
 					</div>
 					<div class="acc_info">
+						<input type="hidden" id="acc_id" value="${sessionScope.loginID }">
 						<span style="float:left;"><img src="../resources/images/user-img.png" width="45px" height="40px"/>
 						${item.ACC_NAME }
 						${item.re_add } 
+						<img id="myChoice" onclick="shoppingBasket()" src="../resources/images/black_heart.png" width="50" height="50">
 						</span>
 						<span style="float:right;">
 						분류 : ${item.ITEM_OPTION }
@@ -631,6 +674,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="item_contents">
 						${item.ITEM_CONTENTS }
 					</div>
+					
+					<c:choose>
+					<c:when test="${item.ACC_ID == sessionScope.loginID }">
+						<input type="button" value="글 수정" onclick="goForm()" >
+					</c:when>
+					</c:choose>
+					
 					<hr align="center" width="60%">
 					<div class="comments">
 						<textarea rows="5" cols="108" id="comment_contents" placeholder="댓글을 입력 해 주세요."></textarea>

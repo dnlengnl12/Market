@@ -57,3 +57,14 @@ alter table comment_db add constraint comment_db_fk1 foreign key(acc_id) referen
 alter table comment_db add constraint comment_db_fk2 foreign key(item_num) references item_db(item_num);
 create sequence comment_db_seq;
 alter table comment_db add comment_index number default 1 not null;
+
+create table com_db(
+    comment_no          number              primary key
+    ,acc_id             varchar2(100)       not null
+    ,acc_name			varchar2(100)		not null
+    ,item_num           number              not null
+    ,comment_contents   varchar2(1000)      not null
+    ,comment_date      date              default sysdate
+);
+alter table com_db add constraint comment_db_fk1 foreign key(acc_id) references account_db(acc_id);
+alter table com_db add constraint comment_db_fk2 foreign key(item_num) references item_db(item_num);
